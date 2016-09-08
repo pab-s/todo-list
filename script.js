@@ -1,4 +1,32 @@
+//todo list js
+var input = document.getElementById('input');
+var btn = document.getElementById('btn');
+var table = document.getElementById('table');
+var taskNum = 0;
+var arrayTask = [];
+var check;
 
+//local storage setup
+myStorage = localStorage;
+var xhr = new XMLHttpRequest();
+
+function updateTask() {
+  for (var i = 0; i < myStorage.length; i++) {
+    var newItem = myStorage.getItem(i);
+    newItem = JSON.parse(newItem);
+    arrayTask[i] = newItem;
+    console.log(arrayTask[i]);
+  }
+}
+
+// convert object task to JSON string and storage it
+function arrToStr(obj) {
+  var taskStr = JSON.stringify(obj);
+  myStorage.setItem(taskNum, taskStr);
+  console.log("JSON = " + taskStr);
+}
+
+// object constructor
 function task(name, id) {
   this.id = id;
   this.name = name;
@@ -11,13 +39,7 @@ function task(name, id) {
   this.completed = false;
 };
 
-var input = document.getElementById('input');
-var btn = document.getElementById('btn');
-var table = document.getElementById('table');
-var taskNum = 0;
-var arrayTask = [];
-var check;
-
+//input listener
 btn.addEventListener('click', function() {
   if(input.value != "") {
       var inputName = input.value;
@@ -36,13 +58,14 @@ btn.addEventListener('click', function() {
       table.appendChild(tr);
       var td = tr.appendChild(document.createElement('td'));
       td.appendChild(checkbox);
+      // calls checkbox listener
       callListener(checkbox, arrayTask[taskNum].completed, taskNum);
 
       //log the new task
-      console.log(arrayTask[taskNum]);
       console.log(arrayTask[taskNum].date());
+      arrToStr(arrayTask[taskNum]);
 
-      //change task num and clear input box;
+      //change task num and resets input box;
       taskNum += 1;
       input.value = "";
   } else {
@@ -58,3 +81,5 @@ function callListener(checkName, comp, num) {
     console.log(arrayTask[num].name + ' completed: ' + arrayTask[num].completed);
   });
 }
+
+window.onload = updateTask();
