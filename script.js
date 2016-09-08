@@ -16,10 +16,10 @@ var btn = document.getElementById('btn');
 var table = document.getElementById('table');
 var taskNum = 0;
 var arrayTask = [];
+var check;
 
 btn.addEventListener('click', function() {
   if(input.value != "") {
-
       var inputName = input.value;
       var newTask = new task(inputName, taskNum);
       arrayTask[taskNum] = newTask;
@@ -36,6 +36,7 @@ btn.addEventListener('click', function() {
       table.appendChild(tr);
       var td = tr.appendChild(document.createElement('td'));
       td.appendChild(checkbox);
+      callListener(checkbox, arrayTask[taskNum].completed, taskNum);
 
       //log the new task
       console.log(arrayTask[taskNum]);
@@ -44,8 +45,16 @@ btn.addEventListener('click', function() {
       //change task num and clear input box;
       taskNum += 1;
       input.value = "";
-
   } else {
     alert("try again");
   }
 });
+
+// see if checkbox is clicked and updates task
+function callListener(checkName, comp, num) {
+    checkName.addEventListener('click', function() {
+    comp = !comp;
+    arrayTask[num].completed = comp;
+    console.log(arrayTask[num].name + ' completed: ' + arrayTask[num].completed);
+  });
+}
