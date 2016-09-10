@@ -18,7 +18,7 @@ body {
 
 table {
 	width: 800px;
-	border-collapse: collapse;
+/*	border-collapse: collapse;*/
 	overflow: hidden;
 	box-shadow: 0 0 20px rgba(0,0,0,0.1);
   color: #fff;
@@ -38,11 +38,10 @@ thead th {
 		background-color: #283048;
     padding: 15px;
 }
-
-tbody tr:hover {
-			background-color: rgba(255,255,255,0.3);
-      transition-duration: 0.4s;
-}
+/*
+tbody tr:nth-child(even) {
+  background-color: rgba(255,255,255,0.3);
+}*/
 
 .flat {
   background-color: rgba(255,255,255,0.2);
